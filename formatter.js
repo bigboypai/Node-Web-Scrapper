@@ -9,7 +9,7 @@
  * written permission of Adobe.
  */
 
-const dotenv = require('dotenv')
+require('dotenv').config();
 const PDFServicesSdk = require('@adobe/pdfservices-node-sdk');
 /**
  * This sample illustrates how to extract Text and Table Information from PDF.
