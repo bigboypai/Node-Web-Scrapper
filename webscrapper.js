@@ -3,7 +3,7 @@ const chrome = require('selenium-webdriver/chrome');
 const path = require('path');
 const fs = require('fs')
 
-async function downloadPDF(url, outpath) {
+async function downloadPDF(url) {
   const downloadFolder = path.resolve(__dirname, 'data'); // Set your desired download folder here
 
   const options = new chrome.Options();
@@ -36,7 +36,4 @@ async function downloadPDF(url, outpath) {
   }
 }
 
-const URL = 'https://www.pima.go.cr/boletin/';
-const OUTPATH = 'boletin.pdf';
-
-downloadPDF(URL), OUTPATH;
+module.exports = { downloadPDF }
