@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs')
 
 async function downloadPDF(url, outpath) {
-  const downloadFolder = path.resolve(__dirname, 'boletines'); // Set your desired download folder here
+  const downloadFolder = path.resolve(__dirname, 'data'); // Set your desired download folder here
 
   const options = new chrome.Options();
   options.setUserPreferences({ 'download.default_directory': downloadFolder });

@@ -35,7 +35,7 @@ try {
     // Create a new operation instance.
     const extractPDFOperation = PDFServicesSdk.ExtractPDF.Operation.createNew(),
         input = PDFServicesSdk.FileRef.createFromLocalFile(
-            'boletines/SIMM-Boletin de Precios PIMA-Plaza 2024-01-30.pdf',
+            'data/SIMM-Boletin de Precios PIMA-Plaza 2024-01-31.pdf',
             PDFServicesSdk.ExtractPDF.SupportedSourceFormat.pdf
         );
 
@@ -63,9 +63,8 @@ try {
     function createOutputFilePath() {
         let date = new Date();
         let dateString = date.getFullYear() + "-" + ("0" + (date.getMonth() + 1)).slice(-2) + "-" +
-            ("0" + date.getDate()).slice(-2) + "T" + ("0" + date.getHours()).slice(-2) + "-" +
-            ("0" + date.getMinutes()).slice(-2) + "-" + ("0" + date.getSeconds()).slice(-2);
-        return ("output/ExtractTextTableInfoFromPDF/extract" + dateString + ".zip");
+            ("0" + date.getDate()).slice(-2)
+        return ("data/spreadsheet/" + dateString + ".zip");
     }
 
 } catch (err) {
