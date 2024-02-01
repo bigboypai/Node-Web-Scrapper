@@ -3,14 +3,21 @@ const { pdfToExcel } = require('./formatter');
 
 const URL = 'https://www.pima.go.cr/boletin/';
 
-downloadPDF(URL)
-  .then(() => {
-    console.log('PDF download completed.');
-    return pdfToExcel();
-  })
-  .then(() => {
-    console.log('PDF to Excel conversion completed.');
-  })
-  .catch((error) => {
-    console.error('An error occurred:', error);
-  });
+async function main() {
+    try {
+        console.log('Starting PDF download...');
+        await downloadPDF(URL);
+        console.log('PDF download completed.');
+
+        console.log('Starting PDF to Excel conversion...');
+        await pdfToExcel();
+        console.log('PDF to Excel conversion completed.');
+
+        // Add additional steps here
+
+    } catch (error) {
+        console.error('An error occurred:', error);
+    }
+}
+
+main();

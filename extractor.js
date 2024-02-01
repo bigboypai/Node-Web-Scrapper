@@ -1,5 +1,13 @@
 const decompress = require('decompress');
- 
-decompress('data/spreadsheet/2024-01-31.zip', 'dist').then(files => {
-    console.log('done!');
-});
+
+const decompressZIP = (sourcePath, destinationPath) => {
+    decompress(sourcePath, destinationPath)
+        .then(files => {
+            console.log('Successfully extracted the data');
+        })
+        .catch(error => {
+            console.error('Error during decompression:', error);
+        });
+};
+
+module.exports = { decompressZIP };
