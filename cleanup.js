@@ -1,34 +1,29 @@
-// const fs = require('fs');
+const fs = require('fs').promises;
+const path = require('path');
 
-// const fileExists = (path) => {
-//     try {
-//         fs.statSync(path);
-//         return true;
-//     } catch (err) {
-//         if (err.code === 'ENOENT') {
-//             return false;
-//         } else {
-//             throw err;
-//         }
-//     }
-// };
+const cleanUpFolder = async (folderPath) => {
+    try {
+        const files = await fs.readdir(folderPath);
 
-// const cleanUpFunction = (file) => {
-//     if (!fileExists(file)) {
-//         return;
-//     } else {
-//         fs.unlink(file, (err) => {
-//             if (err) {
-//                 console.error(`Error deleting file ${file}:`, err);
-//             } else {
-//                 console.log(`File ${file} deleted successfully.`);
-//             }
-//         });
-//     }
-// };
+        // Use Promise.all to await all removal operations
+        await Promise.all(files.map(async (file) => {
+            const filePath = path.join(folderPath, file);
+            const stats = await fs.stat(filePath);
 
-// const filePath = 'data/spreadsheet/2024-02-01.zip';
+            if (stats.isDirectory() && !['data', 'database'].includes(file)) {
+                // If it's a directory (excluding 'data' and 'database'), recursively call cleanUpFolder
+                await cleanUpFolder(filePath);
+            } else if (stats.isFile()) {
+                // If it's a file, unlink (delete) the file
+                await fs.unlink(filePath);
+            }
+        }));
 
-// cleanUpFunction(filePath);
+        console.log(`Cleaned up folder: ${folderPath}`);
+    } catch (error) {
+        console.error(`Error during cleanup: ${error}`);
+        throw error;
+    }
+};
 
-// module.exports = { cleanUpFunction };
+module.exports = { cleanUpFolder };
